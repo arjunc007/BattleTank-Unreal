@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#include "Tank.h"
+#include "Engine/World.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -15,7 +17,6 @@ void ATankPlayerController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController Possessing: %s"), *(ControlledTank->GetName()));
 	}
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -51,12 +52,8 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation) const
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXPosition, ViewportSizeY * CrosshairYPosition);
 
 	FVector LookDirection;
-	if (GetLookDirection(ScreenLocation, LookDirection))
-	{
-		return GetLookVectorHitLocation(LineTraceRange, LookDirection, HitLocation);
-	}
-
-	return false;
+	GetLookDirection(ScreenLocation, LookDirection);
+	return GetLookVectorHitLocation(LineTraceRange, LookDirection, HitLocation);
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection)	 const
