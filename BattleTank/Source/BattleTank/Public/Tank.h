@@ -27,7 +27,7 @@ public:
 	void AimAt(FVector HitLocation) const;
 
 	UFUNCTION(BlueprintCallable)
-	void Fire() const;
+	void Fire();
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
@@ -42,6 +42,7 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 4000;
 
@@ -49,4 +50,8 @@ private:
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	UTankBarrel* Barrel = nullptr;
+
+	float ReloadTimeInSeconds = 3.f;
+
+	double LastFireTime = 0.0;
 };
