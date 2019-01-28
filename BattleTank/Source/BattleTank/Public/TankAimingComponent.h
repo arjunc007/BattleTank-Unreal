@@ -6,6 +6,14 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+UENUM()
+enum class EFiringStatus : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
 class UTankBarrel;
 class UTankTurret;
 
@@ -19,20 +27,19 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	void SetTurretReference(UTankTurret* TurretToSet);
-
-	// Called when the game starts
-	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
 
 private:
 	void MoveBarrelTowards(FVector AimDirection);
 
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = State)
+	EFiringStatus FiringStatus = EFiringStatus::Reloading;
+
 private:
 	UTankBarrel* Barrel = nullptr;
-	UTankTurret* Turret = nullptr;
-		
+	UTankTurret* Turret = nullptr;		
 };
