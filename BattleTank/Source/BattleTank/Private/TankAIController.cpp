@@ -18,6 +18,8 @@ void ATankAIController::Tick(float DeltaTime)
 	if (PlayerTank)
 	{
 		//TODO Move towards player
+		MoveToActor(PlayerTank, AcceptanceRadius);
+
 		//Start aiming at player
 		auto ControlledTank = Cast<ATank>(GetPawn());
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());
