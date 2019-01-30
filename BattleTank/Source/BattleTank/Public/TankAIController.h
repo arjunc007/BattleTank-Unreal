@@ -22,5 +22,5 @@ private:
 protected:
 	//How close the AI Tank can get
 	UPROPERTY(EditAnywhere, Category = "Setup")
-	float AcceptanceRadius = 3000.f;
+	float AcceptanceRadius = 8000.f;
 };
